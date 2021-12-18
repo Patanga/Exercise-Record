@@ -13,7 +13,7 @@ int countSegments(char * s){
     }
 
     for(unsigned long int i = 1; i < strlen(s); i++){
-        if (s[i-1] != ' ' && ((s[i]) == ' ') || (i == strlen(s)-1) && (s[i-1] != ' ')){
+        if (s[i-1] != ' ' && ((s[i]) == ' ') || (i == strlen(s)-1) && (s[i]!= ' ' || (s[i-1] != ' '))){
             num ++;
         }
     }
