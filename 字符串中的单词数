@@ -2,10 +2,18 @@
 */
 
 int countSegments(char * s){
-    unsigned long int num = 1;
+    unsigned long int num = 0;
 
-    for(unsigned long int i = 0; i < strlen(s); i++){
-        if (s[i] == ' ' &&((isalpha(s[i-1])) || (isalpha(s[i+1])))){
+    if(s == NULL)
+    return 0;
+    
+    if(strlen(s) == 1){
+        if(s[0] != ' ')
+        num ++;
+    }
+
+    for(unsigned long int i = 1; i < strlen(s); i++){
+        if (s[i-1] != ' ' && ((s[i]) == ' ') || (i == strlen(s)-1) && (s[i-1] != ' ')){
             num ++;
         }
     }
