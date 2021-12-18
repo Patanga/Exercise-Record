@@ -1,0 +1,26 @@
+/* https://leetcode-cn.com/problems/length-of-last-word/
+除了用break有没有其他方法啊。。
+*/
+
+int lengthOfLastWord(char * s){
+    int length = 0;
+    int i;
+    
+    if(strlen(s) == 1){
+        if(isalpha(s[0])){
+            return 1;
+        }
+        return 0;
+    }
+
+    for(i = strlen(s) - 1; !isalpha(s[i]); i--){
+    }
+
+    for(i; isalpha(s[i]); i--){
+        length++;
+        if(i == 0){
+            break;
+        }
+    }
+    return length;
+}
