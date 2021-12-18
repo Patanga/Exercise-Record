@@ -5,7 +5,15 @@ char * shiftingLetters(char * s, int* shifts, int shiftsSize){
     int n = 0, i = 0, j = 0;
     for(i = 0; i < shiftsSize; i++){
         for(j = 0; j <= i; j++){
-            s[j] = s[j] + shifts[i];
+            shifts[i] = shifts[i] % 26;
+
+            //  Important
+            if(s[j] + shifts[i] > 'z'){
+                s[j] = s[j] + shifts[i] - 'z' + 'a' - 1;
+            }
+            else{
+                s[j] = s[j] + shifts[i];
+            }
         }
     }
 
