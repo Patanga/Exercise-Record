@@ -1,0 +1,26 @@
+/*第1期：字符串操作(2/3): https://leetcode-cn.com/problems/number-of-segments-in-a-string/
+*/
+
+int countSegments(char * s){
+    unsigned long int num = 1;
+
+    for(unsigned long int i = 0; i < strlen(s); i++){
+        if (s[i] == ' ' &&((isalpha(s[i-1])) || (isalpha(s[i+1])))){
+            num ++;
+        }
+    }
+
+    bool isvalid = false;
+    for(unsigned long int i = 0; i < strlen(s); i++){
+        if (isalpha(s[i])){
+            isvalid = true;
+        }
+    }
+
+    if(isvalid == false){
+        return 0;
+    }
+    else{
+        return num;
+    }
+}
