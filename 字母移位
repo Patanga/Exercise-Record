@@ -1,0 +1,13 @@
+/*第1期：字符串操作(1/3): https://leetcode-cn.com/problems/shifting-letters/
+*/
+
+char * shiftingLetters(char * s, int* shifts, int shiftsSize){
+    int n = 0, i = 0, j = 0;
+    for(i = 0; i < shiftsSize; i++){
+        for(j = 0; j <= i; j++){
+            s[j] = s[j] + shifts[i];
+        }
+    }
+
+    return s;
+}
