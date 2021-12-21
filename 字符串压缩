@@ -1,0 +1,36 @@
+/* 字符串操作老是null。。。。
+https://leetcode-cn.com/problems/compress-string-lcci/
+*/
+
+#define BIGGEST 50000
+char* compressString(char* S){
+    unsigned long int l1, l2 = 0;
+    l1 = strlen(S);
+    char alphatmp;
+    int numtmp = 0;
+
+    char newS[2*BIGGEST];
+    if(l1 <= 2){
+        return S;
+    }
+
+    int i,j;
+    for(i = 0; i < l1; i++){
+        alphatmp = S[i];
+        for(j = i + 1; S[j] == S[i] || j < l1; j++){
+            numtmp ++;
+        }
+        newS[l2] = S[i];
+        l2++;
+        newS[l2] = numtmp;
+        l2++;
+        i = j;
+        numtmp = 0;
+    }
+
+    l2 = strlen(newS);
+    if(l1 > l2){
+        return newS;
+    }
+    return S;
+}
