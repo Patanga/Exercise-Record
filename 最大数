@@ -1,0 +1,48 @@
+//  https://leetcode-cn.com/problems/largest-number/
+
+char * largestNumber(int* nums, int numsSize){
+    char* str = (char*)malloc(sizeof(char)*100*numsSize);
+    str[100*numsSize-1] = '\0'; 
+
+    if(numsSize == 1){
+        sprintf(str, "%d", nums[0]);
+        int c = log10(nums[0])+1;
+        str[c+1] = '\0';
+    }
+
+    char* temp_origin = (char*)malloc(sizeof(char)*100);
+    char* temp_new = (char*)malloc(sizeof(char)*100);
+
+    int* sdnums = (int*)calloc(numsSize, sizeof(int));
+    for(int i = 0; i < numsSize; i++){
+        if(i = 0){
+            sdnums[0] = nums[i];
+        }else{
+            sprintf(temp_new, "%u", nums[i]);
+            for(int j = 0; j < i; j++){
+                sprintf(temp_origin, "%u", sdnums[j]);
+                //对比，插入
+                for(int m = 0; m < strlen(temp_new) && m < strlen(temp_origin); m++){
+                    //
+                }
+            }
+        }
+    }
+
+
+    return str;
+}
+
+
+
+
+/*
+    //  结构体写法, 与calloc用法
+    typedef struct newnum newnum;
+    struct newnum{
+        int topbit;
+        int number;
+        bool isin;
+        newnum* next;
+    };
+*/
