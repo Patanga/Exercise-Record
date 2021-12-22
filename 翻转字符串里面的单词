@@ -3,6 +3,43 @@ https://leetcode-cn.com/problems/reverse-words-in-a-string/
 */
 
 char * reverseWords(char * s){
+    int l1, l2=0;
+    l1 = strlen(s);
+
+//malloc格式要记对：size of(char)无星号，还要用'\0'封口？？？。。。
+    char *rev = (char*)malloc(sizeof(char)*2*(l1+1));
+    char *temp = (char*)malloc(sizeof(char)*(l1+1));
+    rev[l1] = '\0';
+
+    int i, j;
+    // 记得要允许等于0
+    for(i = l1-1; i >= 0; i--){
+        if(s[i] != ' '){
+            //j的条件怎么写才比较好->判断条件的顺序调转一下，以免读取到不可读取的地方
+            for(j = i; j >= 0 && s[j] != ' '; j--){
+            }
+            j++;
+
+            l2+= ((i-j)+1);
+
+            for(int m = 0; m < (i-j+1); m++){
+                temp[m] = s[m+j];
+                rev[l2-((i-j+1))+m] = s[m+j];
+            }
+
+            rev[l2] = ' ';
+            l2++;
+            i = j-1;
+        }
+    }
+    rev[l2-1] = '\0';
+    return rev;
+}
+
+
+
+/*
+char * reverseWords(char * s){
     int length;
     length = strlen(s);
 
@@ -11,7 +48,7 @@ char * reverseWords(char * s){
     return s_rev;
     
 }
-
+*/
 
 //  参考题解
 char * reverseWords(char * s){
