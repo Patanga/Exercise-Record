@@ -1,4 +1,5 @@
 //  https://leetcode-cn.com/problems/sort-characters-by-frequency/
+//  有bug，还没修。
 char * frequencySort(char * s){
     struct cf{
         char c;
@@ -7,30 +8,37 @@ char * frequencySort(char * s){
     typedef struct cf cf;
 
     cf* charfre = (cf*)calloc(strlen(s), sizeof(cf)+1);
-    char* target = (char*)calloc(strlen(s)+1, sizeof(char));
+    char* target = (char*)calloc(strlen(s)*2, sizeof(char));
     int charnum = 0;
     bool isin = false;
 
+    //  遍历，统计每个字母出现的频率
     for(int i = 0; i < strlen(s); i++){
         isin = false;
         if(i == 0){
             charfre[0].c = s[i];
-            charfre[0].fre ++;
+            charfre[0].fre = 1;
             charnum = 1;
         }
-        for(int j = 1; j < charnum; j++){
+        for(int j = 0; j < charnum && i != 0; j++){
             if(charfre[j].c == s[i]){
                 charfre[j].fre ++;
                 isin = true;
             }
         }
-        if(isin == false){
-            charfre[charnum-1].c = s[i];
-            charfre[charnum-1].fre ++;
+        if(isin == false && i != 0){
+            charfre[charnum].c = s[i];
+            charfre[charnum].fre ++;
             charnum++;
         }
     }
 
+    //  把结构体打印出来检查一下
+    for(int i = 0; i < charnum; i++){
+        //printf("charfre[%i].c = %c, charfre[%i].fre = %i\n", i, charfre[i].c, i, charfre[i].fre);
+    }
+
+    //  对频率进行排序
     int* sort = (int*)malloc(sizeof(int)*charnum);
     for(int i = 0; i < charnum; i++){
         sort[i] = charfre[i].fre;
@@ -46,17 +54,40 @@ char * frequencySort(char * s){
         }
     }
 
+    //  按排序输出数组
     int len = 0;
-    for(int i = charnum-1; i > 0; i--){
-        for(int j = 0; j < charnum; j++){
-            if(charfre[j].fre == sort[i]){
-                for(int m = 0; m < charfre[j].fre; m++){
-                    target[m+len] = charfre[j].c;
+    if(strlen(s) <= 3){
+        for(int i = charnum-1; i >= 0; i--){
+            //printf("i = %i, sort[i] = %i\n", i, sort[i]);
+            for(int j = 0; j < charnum; j++){
+                if(charfre[j].fre == sort[i]){
+                    //printf("charfre[%i].fre = %i\n", j, charfre[j].fre);
+                    for(int m = 0; m < charfre[j].fre; m++){
+                        target[m+len] = charfre[j].c;
+                        //printf("m = %i, len = %i, char = %c\n", m, len, charfre[j].c);
+                        printf("strlen = %i\n", strlen(target));
+                    }
+                    len += charfre[j].fre;
                 }
-                len += charfre[j].fre;
             }
         }
     }
-
+    else{
+        for(int i = charnum-1; i > 0; i--){
+            //printf("i = %i, sort[i] = %i\n", i, sort[i]);
+            for(int j = 0; j < charnum; j++){
+                if(charfre[j].fre == sort[i]){
+                    //printf("charfre[%i].fre = %i\n", j, charfre[j].fre);
+                    for(int m = 0; m < charfre[j].fre; m++){
+                        target[m+len] = charfre[j].c;
+                        //printf("m = %i, len = %i, char = %c\n", m, len, charfre[j].c);
+                        printf("strlen = %i\n", strlen(target));
+                    }
+                    len += charfre[j].fre;
+                }
+            }
+        }
+    }
+    printf("\n\n");
     return target;
 }
