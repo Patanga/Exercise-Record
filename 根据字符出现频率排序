@@ -1,0 +1,62 @@
+//  https://leetcode-cn.com/problems/sort-characters-by-frequency/
+char * frequencySort(char * s){
+    struct cf{
+        char c;
+        int fre;
+    };
+    typedef struct cf cf;
+
+    cf* charfre = (cf*)calloc(strlen(s), sizeof(cf)+1);
+    char* target = (char*)calloc(strlen(s)+1, sizeof(char));
+    int charnum = 0;
+    bool isin = false;
+
+    for(int i = 0; i < strlen(s); i++){
+        isin = false;
+        if(i == 0){
+            charfre[0].c = s[i];
+            charfre[0].fre ++;
+            charnum = 1;
+        }
+        for(int j = 1; j < charnum; j++){
+            if(charfre[j].c == s[i]){
+                charfre[j].fre ++;
+                isin = true;
+            }
+        }
+        if(isin == false){
+            charfre[charnum-1].c = s[i];
+            charfre[charnum-1].fre ++;
+            charnum++;
+        }
+    }
+
+    int* sort = (int*)malloc(sizeof(int)*charnum);
+    for(int i = 0; i < charnum; i++){
+        sort[i] = charfre[i].fre;
+    }
+    int temp;
+    for(int i = 0; i < charnum-1; i++){
+        for(int j = 0; j < charnum-1-i; j++){
+            if(sort[j]>sort[j+1]){
+                temp = sort[j];
+                sort[j] = sort[j+1];
+                sort[j+1] = temp;
+            }
+        }
+    }
+
+    int len = 0;
+    for(int i = charnum-1; i > 0; i--){
+        for(int j = 0; j < charnum; j++){
+            if(charfre[j].fre == sort[i]){
+                for(int m = 0; m < charfre[j].fre; m++){
+                    target[m+len] = charfre[j].c;
+                }
+                len += charfre[j].fre;
+            }
+        }
+    }
+
+    return target;
+}
