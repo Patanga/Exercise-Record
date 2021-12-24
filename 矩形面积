@@ -1,0 +1,60 @@
+// https://leetcode-cn.com/problems/rectangle-area/
+// 未完成的笨比穷举法
+int computeArea(int ax1, int ay1, int ax2, int ay2, int bx1, int by1, int bx2, int by2){
+    int Sa = (ax2-ax1)*(ay2-ay1);
+    int Sb = (bx2-bx1)*(by2-by1);
+    if(Sa==0){
+        return Sb;
+    }
+    if(Sb==0){
+        return Sa;
+    }
+    if(bx1>ax1 && bx1>=ax2 && bx2>ax2 && bx2>=ax1 ||\
+       bx1<ax1 && bx1<=ax2 && bx2<ax2 && bx2<=ax1 ||\
+       by1>ay1 && by1>=ay2 && by2>ay2 && by2>=ay1 ||\
+       by1<ay1 && by1<=ay2 && by2<ay2 && by2<=ay1){
+           printf("Case1");
+           return (Sa+Sb);
+       }
+    if(ay2<=by2 && ay1>=by1 && ax1>=bx1 && ax2<=bx2){
+        printf("Case2");
+        return Sb;
+    }
+    if(by2<=ay2 && by1>=ay1 && bx1>=ax1 && bx2<=ax2){
+        printf("Case3");
+        return Sa;
+    }
+    if(ax1<bx1 && bx1<ax2 && ay1<by2 && by2<ay2){
+        printf("Case4-1");
+        return ((Sa+Sb)-(ax2-bx1)*(by2-ay1));
+    }
+    if(ax1<bx1 && bx1<ax2 && ay1<by1 && by1<ay2){
+        printf("Case4-2");
+        return ((Sa+Sb)-(ax2-bx1)*(ay2-by1));
+    }
+    if(ax1<bx2 && bx2<ax2 && ay1<by1 && by1<ay2){
+        printf("Case4-3");
+        return((Sa+Sb)-(bx2-ax1)*(ay2-by1));
+    }
+    if(ax1<bx2 && bx2<ax2 && ay1<by2 && by2<ay2){
+        printf("Case4-4");
+        return ((Sa+Sb)-(bx2-ax1)*(by2-ay1));
+    }
+    if(){
+        //
+    }
+    return 0;
+}
+
+//投影法
+int computeArea(int ax1, int ay1, int ax2, int ay2, int bx1, int by1, int bx2, int by2) {
+    int area1 = (ax2 - ax1) * (ay2 - ay1), area2 = (bx2 - bx1) * (by2 - by1);
+    int overlapWidth = fmin(ax2, bx2) - fmax(ax1, bx1), overlapHeight = fmin(ay2, by2) - fmax(ay1, by1);
+    int overlapArea = fmax(overlapWidth, 0) * fmax(overlapHeight, 0);
+    return area1 + area2 - overlapArea;
+}
+
+作者：LeetCode-Solution
+链接：https://leetcode-cn.com/problems/rectangle-area/solution/ju-xing-mian-ji-by-leetcode-solution-xzbl/
+来源：力扣（LeetCode）
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
