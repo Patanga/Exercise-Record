@@ -1,0 +1,22 @@
+//  https://leetcode-cn.com/problems/is-subsequence/
+//  笨蛋解法
+
+bool isSubsequence(char * s, char * t){
+    bool istrue;
+    int j_locate = 0;
+
+    for(int i = 0; i < strlen(s); i++){
+        istrue = false;
+        for(int j = j_locate; j < strlen(t); j++){
+            if(s[i] == t[j]){
+                j_locate = j+1;
+                istrue = true;
+                j = strlen(t);
+            }
+        }
+        if(istrue == false){
+            return false;
+        }
+    }
+    return istrue;
+}
