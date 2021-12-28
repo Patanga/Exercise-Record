@@ -1,0 +1,17 @@
+//  https://leetcode-cn.com/problems/last-moment-before-all-ants-fall-out-of-a-plank/
+//  思路很重要！以及左右方向的不同计算方式！
+
+int getLastMoment(int n, int* left, int leftSize, int* right, int rightSize){
+    int max = 0;
+    for(int i = 0; i < leftSize; i++){
+        if(left[i] > max){
+            max = left[i];
+        }
+    }
+    for(int i = 0; i < rightSize; i++){
+        if(n-right[i] > max){
+            max = n-right[i];
+        }
+    }
+    return max;
+}
