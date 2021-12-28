@@ -1,0 +1,22 @@
+//  https://leetcode-cn.com/problems/sort-an-array
+
+
+/*int cmp(const void* a, const void*b){
+    return (*(int*)a - *(int*)b);
+}*/
+
+int cmp(int* a, int*b){
+    return *a - *b;
+}
+
+int* sortArray(int* nums, int numsSize, int* returnSize){
+    int* newnums = (int*)malloc(numsSize*sizeof(int));
+    for(int i = 0; i < numsSize; i++){
+        newnums[i] = nums[i];
+        //printf("%i", newnums[i]);
+    }
+    qsort(newnums, numsSize, sizeof(int), cmp);
+    //  为什么不加下面那行就不行？？
+    *returnSize = numsSize;
+    return newnums;
+}
