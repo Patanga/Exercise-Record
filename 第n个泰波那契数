@@ -1,0 +1,16 @@
+//  https://leetcode-cn.com/problems/n-th-tribonacci-number/solution/
+
+int tribonacci(int n){
+    int* t = (int*)malloc(38*sizeof(int));
+    t[0] = 0;
+    t[1] = 1;
+    t[2] = 1;
+    if(n <= 2){
+        return t[n];
+    }
+
+    for(int i = 3; i <= n; i++){
+        t[i] = t[i-3] + t[i-2] + t[i-1];
+    }
+    return t[n];
+}
