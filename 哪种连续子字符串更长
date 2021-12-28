@@ -1,0 +1,25 @@
+//  https://leetcode-cn.com/problems/longer-contiguous-segments-of-ones-than-zeros/
+
+bool checkZeroOnes(char * s){
+    int l1 = 0, l0 = 0, max1 = 0, max0 = 0;
+    for(int i = 0; i < strlen(s); i++){
+        if(s[i] == '1'){
+            l0 = 0;
+            l1 ++;
+            if(l1 > max1){
+                max1 = l1;
+            }
+        }
+        if(s[i] == '0'){
+            l1 = 0;
+            l0 ++;
+            if(l0 > max0){
+                max0 = l0;
+            }
+        }
+    }
+    if(max1 > max0){
+        return true;
+    }
+    return false;
+}
