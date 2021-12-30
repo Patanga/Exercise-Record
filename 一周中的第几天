@@ -1,0 +1,71 @@
+//  闰年并不是简单的年份除以4。。。 https://leetcode-cn.com/problems/day-of-the-week/
+
+char * dayOfTheWeek(int day, int month, int year){
+    //enum week {Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday};
+    //typeof enum week week; 
+    //  1971/1/1 is Friday
+    int days = 0;
+    days = (year - 1971) * 365;
+    for(int i = 1971; i < year; i++){
+        if(i%400 == 0 || (i%4 == 0 && i%100 != 0)){
+            days++;
+        }
+    }
+    if((year%400 == 0 || (year%4 == 0 && year%100 != 0)) && month>2){
+        days++;
+    }
+    switch(month){
+        case 2:
+            days += 31;
+            break;
+        case 3:
+            days += 31 + 28;
+            break;
+        case 4:
+            days += 31 + 28 + 31;
+            break;
+        case 5:
+            days += 31 + 28 + 31 + 30;
+            break;
+        case 6:
+            days += 31 + 28 + 31 + 30 + 31;
+            break;
+        case 7:
+            days += 31 + 28 + 31 + 30 + 31 + 30;
+            break;
+        case 8:
+            days += 31 + 28 + 31 + 30 + 31 + 30 + 31;
+            break;
+        case 9:
+            days += 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31;
+            break;
+        case 10:
+            days += 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30;
+            break;
+        case 11:
+            days += 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31;
+            break;
+        case 12:
+            days += 31 + 28 + 31 + 30 + 31 + 30 + 31 + 31 + 30 + 31 + 30;
+            break;
+    }
+    days += day;
+    days = (days-1)%7;
+    switch(days){
+        case 0:
+        return "Friday";
+        case 1:
+        return "Saturday";
+        case 2:
+        return "Sunday";
+        case 3:
+        return "Monday";
+        case 4:
+        return "Tuesday";
+        case 5:
+        return "Wednesday";
+        case 6:
+        return "Thursday";
+    }
+    return "Error";
+}
