@@ -1,0 +1,26 @@
+//  https://leetcode-cn.com/problems/two-sum/
+
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+#define MAXSIZE 500000
+
+int* twoSum(int* nums, int numsSize, int target, int* returnSize){
+    int* ans = (int*)calloc(2, sizeof(int));
+    
+    for(int i = 0; i < numsSize; i++){
+        int tar = target - nums[i];
+        for(int j = 0; j <numsSize; j++){
+            if(i != j){
+                if(nums[j] == tar){
+                    ans[0] = i;
+                    ans[1] = j;
+                    //  下面这一行很重要
+                    *returnSize = 2;
+                }
+            }
+        }
+    }
+
+    return ans;
+}
