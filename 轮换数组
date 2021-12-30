@@ -11,3 +11,18 @@ void rotate(int* nums, int numsSize, int k){
     }
     return nums;
 }
+
+//  方法二 - 创造一个新的数组 - 问题：不理解leetcode里面的ans为什么诡异地不受控制
+void rotate(int* nums, int numsSize, int k){
+    //int* ans = (int*)malloc(numsSize*sizeof(int));
+    int ans[numsSize];
+    for(int i = 0; i < numsSize; i++){
+        ans[(i+k)%numsSize] = nums[i];
+        //ans为什么没有被修改到..
+        //ans[i] = (i+k)%numsSize;
+        //printf("checkpoint");
+    }
+
+    for(int i = 0; i < numsSize; i++){
+        nums[i] = ans[i];
+    }
