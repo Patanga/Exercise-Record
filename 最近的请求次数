@@ -1,0 +1,77 @@
+//  炒了三次饭，分别是：1 忘记把一次性超过3000的情况下called清零； 2 忘记把区间范围内的情况普适化； 3 边界值的处理
+//  学会自己做ADT和数据结构要熟练构建。。
+//  https://leetcode-cn.com/problems/number-of-recent-calls
+
+typedef struct {
+    int called;
+    int sec;
+} RecentCounter;
+
+
+RecentCounter* recentCounterCreate() {
+    RecentCounter* obj = (RecentCounter*)calloc(3001, sizeof(RecentCounter));
+    for(int i = 0; i < 3001; i++){
+        obj[i].sec = i;
+    }
+    return obj;
+}
+
+int recentCounterPing(RecentCounter* obj, int t) {
+    if(t <= obj[3000].sec){
+        //printf("case0\n");
+        for(int i = 0; i < 3001; i++){
+            if(obj[i].sec == t){
+                obj[i].called = 1;
+            }
+        }
+    }
+
+    //printf("t = %i, obj[3000].sec= %i, %i\n", t, obj[3000].sec, t - obj[3000].sec);
+    //  队列操作(在头部加，在尾部删去) - quene
+    if(t > obj[3000].sec && (t-3001<= obj[3000].sec)){
+        //printf("case1\n");
+        int mov = t - obj[3000].sec;
+        for(int i = 0; i < 3001-mov; i++){
+            //if(i+mov>3000)printf("i+mov = %i\n", i+mov);
+            obj[i].called = obj[i+mov].called;
+            obj[i].sec = obj[i+mov].sec;
+        }
+        for(int i = 3001-mov; i < 3001; i++){
+            obj[i].called = 0;
+            obj[i].sec = obj[i-1].sec + 1;
+            if(t == obj[i].sec){
+                obj[i].called = 1;
+            }
+        }
+    }
+
+    if(t - 3001 > obj[3000].sec){
+        obj[0].called = 1;
+        obj[0].sec = t;
+        //printf("case2\n");
+        for(int i = 1; i < 3001; i++){
+            obj[i].called = 0;
+            obj[i].sec = t+i;
+        }
+    }
+
+    int ans = 0;
+    for(int i = 0; i < 3001; i++){
+        if(obj[i].called == 1){
+            ans++;
+        }
+    }
+    return ans;
+}
+
+void recentCounterFree(RecentCounter* obj) {
+    free(obj);
+}
+
+/**
+ * Your RecentCounter struct will be instantiated and called as such:
+ * RecentCounter* obj = recentCounterCreate();
+ * int param_1 = recentCounterPing(obj, t);
+ 
+ * recentCounterFree(obj);
+*/
