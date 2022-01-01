@@ -1,0 +1,45 @@
+//  简单学习了栈的用法，以及需要自己多去考虑炒饭的问题，不要等到提交报错再改。
+//  https://leetcode-cn.com/problems/valid-parentheses/
+
+bool isMatch(char s1, char s2){
+    if(s1 == '{' && s2 == '}'){
+        return true;
+    }
+    if(s1 == '(' && s2 == ')'){
+        return true;
+    }
+    if(s1 == '[' && s2 == ']'){
+        return true;
+    }
+    return false;
+}
+
+bool isValid(char * s){
+    int l1 = strlen(s);
+    if(l1%2 != 0 || s[l1-1] == '(' || s[l1-1] == '{' || s[l1-1] == '['|| s[0] == ')' || s[0] == '}' || s[0] == ']'){
+        return false;
+    }
+    char* tmp = (char*)calloc(l1+1, sizeof(char));
+    int l2 = 0;
+
+    for(int i = 0; i < l1; i++){
+        if(s[i] == '(' || s[i] == '{' || s[i] == '['){
+            tmp[l2] = s[i];
+            l2++;
+        }
+        else{
+            if(l2<=0){
+                return false;
+            }
+            printf("%c %c", tmp[l2-1], s[i]);
+            if(!isMatch(tmp[l2-1], s[i])){
+                return false;
+            }
+            l2--;
+        }
+    }
+    if(l2 != 0){
+        return false;
+    }
+    return true;
+}
