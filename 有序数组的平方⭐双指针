@@ -11,3 +11,22 @@ int* sortedSquares(int* nums, int numsSize, int* returnSize){
     *returnSize = numsSize;
     return nums;
 }
+
+ //  双指针
+int* sortedSquares(int* nums, int numsSize, int* returnSize){
+    int* ans = (int*)malloc(numsSize*sizeof(int));
+    *returnSize = numsSize;
+    int k = numsSize-1;
+    for(int i = 0, j = numsSize-1; i<=j; ){
+        if(nums[i]*nums[i] >= nums[j]*nums[j]){
+            ans[k] = nums[i]*nums[i];
+            k--;
+            i++;
+        }else{
+            ans[k] = nums[j]*nums[j];
+            k--;
+            j--;
+        }
+    }
+    return ans;
+}
