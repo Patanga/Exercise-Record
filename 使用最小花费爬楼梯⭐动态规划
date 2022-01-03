@@ -1,0 +1,29 @@
+//  https://leetcode-cn.com/problems/min-cost-climbing-stairs/
+int minCostClimbingStairs(int* cost, int costSize){
+    if(costSize <= 1){
+        return 0;
+    }
+    if(costSize == 2){
+        return fmin(cost[0], cost[1]);
+    }
+    int ans[costSize+1];
+    ans[0] = 0;
+    ans[1] = 0;
+    for(int i = 2; i <= costSize; i++){
+        ans[i] = fmin(ans[i-2]+cost[i-2], ans[i-1]+cost[i-1]);
+    }
+    return ans[costSize];
+}
+/*
+    // 用一个数组存放到达某一级所需的最少花费。
+    int dp[costSize + 1];
+
+    // 到达0和1是免费的
+    dp[0] = dp[1] = 0;
+    
+    //
+    for (int i = 2; i <= costSize; i++) {
+        dp[i] = fmin(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
+    }
+    return dp[costSize];
+*/
