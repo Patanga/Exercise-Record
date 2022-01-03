@@ -1,0 +1,27 @@
+// https://leetcode-cn.com/problems/move-zeroes/
+
+void swap(int *a, int *b){
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+void moveZeroes(int* nums, int numsSize){
+    if(numsSize<=1){
+        return nums;
+    }
+    //双指针?
+    int left = 0, right = 0;
+    do{
+        if(nums[right] != 0){
+            swap(&nums[left], &nums[right]);
+            left++;
+        }
+        right++;
+        //printf("nums[nz%i] = %i, nums[z%i] = %i\n", nonzero, nums[nonzero], zero, nums[zero]);
+        /*for(int i = 0; i < numsSize; i++){
+            printf("%i,", nums[i]);
+        }
+        printf("\n");*/
+    }while(right < numsSize);
+    return nums;
+}
