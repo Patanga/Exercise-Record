@@ -26,3 +26,33 @@ void rotate(int* nums, int numsSize, int k){
     for(int i = 0; i < numsSize; i++){
         nums[i] = ans[i];
     }
+
+//  方法三 - 双指针（应该并不是）
+void swap(int *a, int *b){
+    // a、b均要带星号……
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
+void reverse(int *nums, int start, int end){
+    while(start < end){
+        // 要加地址 &……
+        swap(&nums[start], &nums[end]);
+        start++;
+        end--;
+    }
+}
+
+void rotate(int* nums, int numsSize, int k){
+    if(k%numsSize == 0){
+        return nums;
+    }
+    else{
+        k = k%numsSize;
+    }
+    reverse(nums, 0, numsSize-1);
+    reverse(nums, 0, k-1);
+    reverse(nums, k, numsSize-1);
+    return nums;
+}
