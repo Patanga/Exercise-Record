@@ -1,0 +1,19 @@
+//  对指针、地址的理解还是不太行（第14行漏写了&
+//  https://leetcode-cn.com/problems/reverse-string
+
+void reverse(char *a, char *b){
+    char tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
+void reverseString(char* s, int sSize){
+    int start = 0, end = sSize-1;
+    while(start < end){
+        printf("start = %i, end = %i\n", start, end);
+        reverse(&s[start], &s[end]);
+        start ++;
+        end --;
+    }
+    return s;
+}
