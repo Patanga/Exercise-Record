@@ -1,0 +1,46 @@
+https://leetcode-cn.com/problems/house-robber-ii
+
+int rob(int* nums, int numsSize){
+    int reward1[1001] = {0};
+    reward1[0] = nums[0];
+    if(numsSize == 1){
+        return reward1[0];
+    }
+    reward1[1] = fmax(nums[0], nums[1]);
+
+    for(int i = 2; i < numsSize-1; ){
+        if(i>=3){
+            reward1[i] = fmax(reward1[i-2] + nums[i], nums[i-1] + reward1[i-3]);
+        }else{
+            reward1[i] = fmax(reward1[i-2] + nums[i], reward1[i-1]);
+        }
+        i++;
+        printf("%i, ", reward1[i-1]);
+    }
+    printf("\n");
+    
+    int reward2[1001] = {0};
+    reward2[0] = 0;
+    reward2[1] = nums[1];
+    for(int i = 2; i < numsSize; ){
+        if(i>=3){
+            reward2[i] = fmax(reward2[i-2] + nums[i], nums[i-1] + reward2[i-3]);
+        }else{
+            reward2[i] = fmax(reward2[i-2] + nums[i], reward2[i-1]);
+        }
+        i++;
+        printf("%i, ", reward2[i-1]);
+    }
+
+    int tmp = 0;
+    for(int i = 0; i < numsSize; i++){
+        if(reward1[i] > tmp){
+            tmp = reward1[i];
+        }
+        if(reward2[i] > tmp){
+            tmp = reward2[i];
+        }
+    }
+
+    return tmp;
+}
